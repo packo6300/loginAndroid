@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">login</string>
+    <string name="action_settings">Settings</string>
+    <string name="usr">Usuario</string>
+    <string name="contra">contraseña</string>
+    <string name="entrar">Entrar</string>
+</resources>

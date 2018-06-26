@@ -92,11 +92,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            EditText usuario =(EditText) findViewById(R.id.usr);
-            EditText pass =(EditText) findViewById(R.id.pass);
-            JsonRequest jParser = new JsonRequest();
-            JSONObject json = jParser.getJsonFromUrl(url+"user="+usuario.getText()+"&password="+pass.getText());
+            JSONObject json=new JSONObject();
+            try {
+                EditText usuario =(EditText) findViewById(R.id.usr);
+                EditText pass =(EditText) findViewById(R.id.pass);
+                JsonRequest jParser = new JsonRequest();
+                JSONObject jsonObj = new JSONObject();
+                jsonObj.put("user", usuario.getText());
+                jsonObj.put("password", pass.getText());
+                json = jParser.getJsonFromUrl(url,jsonObj);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return json;
+
         }
         @Override
         protected void onPostExecute(JSONObject json) {

@@ -5,7 +5,9 @@ import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -27,11 +29,14 @@ public class JsonRequest implements Serializable{
     public JsonRequest(){
 
     }
-    public JSONObject getJsonFromUrl(String url){
+    public JSONObject getJsonFromUrl(String url,JSONObject jsonObj){
         try{
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
+            StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
